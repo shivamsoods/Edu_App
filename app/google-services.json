@@ -1,0 +1,122 @@
+{
+  "project_info": {
+    "project_number": "612547119555",
+    "firebase_url": "https://mcqtest-24600.firebaseio.com",
+    "project_id": "mcqtest-24600",
+    "storage_bucket": "mcqtest-24600.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:612547119555:android:b2a29e68e4f8fe12",
+        "android_client_info": {
+          "package_name": "com.arihantas.eduapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "612547119555-oo5s5rs0s7vtr0s3u807srr2tpglgi0l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.arihantas.eduapp",
+            "certificate_hash": "b41a09bf94409c5e9a83509c65ee0697069a098e"
+          }
+        },
+        {
+          "client_id": "612547119555-b5j2i97rjmh5pr7s6513uevvl2g3s8le.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0txH0J5zhogFMVOOMNeBDldruFDPQFVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "612547119555-b5j2i97rjmh5pr7s6513uevvl2g3s8le.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:612547119555:android:257fb579ebc7d5b1",
+        "android_client_info": {
+          "package_name": "com.arihantas.education"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "612547119555-d0p3o77lf8smrd8dks13bk95r8hufscr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.arihantas.education",
+            "certificate_hash": "b41a09bf94409c5e9a83509c65ee0697069a098e"
+          }
+        },
+        {
+          "client_id": "612547119555-b5j2i97rjmh5pr7s6513uevvl2g3s8le.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0txH0J5zhogFMVOOMNeBDldruFDPQFVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "612547119555-b5j2i97rjmh5pr7s6513uevvl2g3s8le.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:612547119555:android:71f2537880a68d1f",
+        "android_client_info": {
+          "package_name": "com.shivam.mcq"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "612547119555-vcl5r80ktrpehm7pne1ngnl5gu1btcbs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shivam.mcq",
+            "certificate_hash": "b41a09bf94409c5e9a83509c65ee0697069a098e"
+          }
+        },
+        {
+          "client_id": "612547119555-b5j2i97rjmh5pr7s6513uevvl2g3s8le.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0txH0J5zhogFMVOOMNeBDldruFDPQFVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "612547119555-b5j2i97rjmh5pr7s6513uevvl2g3s8le.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
