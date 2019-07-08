@@ -3,20 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TestFragment">
+    tools:context=".TestFragment"
+    android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="55dp"
         android:id="@+id/rv_layout_question_test"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical">
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:visibility="gone"/>
 
+    <TextView
+        android:id="@+id/tv_mcq_question_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text=" =Question Layout="
+        android:textSize="20sp" />
 
-    </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
-        android:visibility="gone"
-        android:id="@+id/activity_main"
+        android:layout_marginTop="50dp"
+        android:id="@+id/ll_test_all"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -44,14 +53,7 @@
 
 
 
-        <TextView
-            android:id="@+id/tv_mcq_question_layout"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:gravity="center"
-            android:text=" ===Question Layout"
-            android:textSize="20sp" />
+
 
 
 
@@ -89,8 +91,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="FLAG"
-                android:background="@color/grey"
-                android:textColor="@color/white" />
+                android:background="@color/grey_light"
+                android:textColor="@color/grey" />
             <Button
                 android:id="@+id/btn_mcq_A"
                 android:layout_width="match_parent"

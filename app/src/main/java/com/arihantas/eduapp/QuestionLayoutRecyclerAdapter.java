@@ -31,9 +31,9 @@ public class QuestionLayoutRecyclerAdapter extends RecyclerView.Adapter<Question
     @Override
     public void onBindViewHolder(@NonNull FlagViewHolder holder, int position) {
             mcqQuestion question_id= quesList.get(position);
-            holder.tvQuestionNumber.setText(position);
+            holder.tvQuestionNumber.setText("Question "+ (position+1));
             if(question_id.isFlag()){
-                holder.ivFlag.setImageResource(R.mipmap.ic_launcher_round);
+                holder.ivFlag.setImageResource(R.drawable.ic_launcher_foreground);
             }
             else {
                 holder.ivFlag.setImageResource(R.drawable.common_google_signin_btn_icon_dark_normal);

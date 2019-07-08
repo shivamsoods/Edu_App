@@ -9,7 +9,7 @@
         android:id="@+id/tv_layout_question_number"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:textSize="50sp"
+        android:textSize="20sp"
         android:text="Question No here"/>
 
     <ImageView

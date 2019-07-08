@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,10 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -36,7 +35,7 @@ import java.util.Objects;
 public class TestFragment extends Fragment {
 
 
-    private Button btnA, btnB, btnC, btnD, btnSubmit, btnNext, btnPrev,btnFlag;
+    private Button btnA, btnB, btnC, btnD, btnSubmit, btnNext, btnPrev, btnFlag;
     private TextView tvQuestion, tvLayout;
     private String optionSelected = "none";
     private int totalItem;
@@ -47,10 +46,11 @@ public class TestFragment extends Fragment {
     private boolean isLoading = true;
     private RelativeLayout rlMcqProgress;
     private FirebaseAuth mAuth;
-    private  boolean allAnswered=false;
+    private boolean allAnswered = false;
     private RecyclerView rvQuesLayout;
     private RecyclerView.LayoutManager layoutManager;
     private QuestionLayoutRecyclerAdapter adapter;
+    private LinearLayout llQuestionAll;
 
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -74,17 +74,17 @@ public class TestFragment extends Fragment {
         btnSubmit = view.findViewById(R.id.btn_mcq_submit);
         btnNext = view.findViewById(R.id.btn_mcq_next);
         btnPrev = view.findViewById(R.id.btn_mcq_prev);
-        btnFlag=view.findViewById(R.id.btn_mcq_flag);
+        btnFlag = view.findViewById(R.id.btn_mcq_flag);
 
         tvQuestion = view.findViewById(R.id.tv_mcq_question);
         tvLayout = view.findViewById(R.id.tv_mcq_question_layout);
 
-        rvQuesLayout=view.findViewById(R.id.rv_layout_question_test);
-        makeRecyclerView();
+        rvQuesLayout = view.findViewById(R.id.rv_layout_question_test);
 
         rlMcqProgress = view.findViewById(R.id.rl_mcq_progress);
         rlMcqProgress.setVisibility(View.VISIBLE);
 
+        llQuestionAll=view.findViewById(R.id.ll_test_all);
 
         mAuth = FirebaseAuth.getInstance();
         getFData();
@@ -125,31 +125,36 @@ public class TestFragment extends Fragment {
             }
         });
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                displayNextQues();
-
-            }
-        });
 
         btnFlag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(quesList.get(listItem).isFlag()){
-                    btnFlag.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()),R.color.grey_light));
-                    btnFlag.setTextColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()),R.color.grey));
-                    quesList.get(listItem).setFlag(false);}
-                else {
-                    btnFlag.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()),R.color.grey));
-                    btnFlag.setTextColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()),R.color.white));
-                    quesList.get(listItem).setFlag(true);
-                }
-
+                setFlagValue();
+                setFlagColor();
             }
         });
 
+        tvLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                adapter.notifyDataSetChanged();
+                if (rvQuesLayout.getVisibility() == View.GONE || rvQuesLayout.getVisibility() == View.INVISIBLE) {
+                    rvQuesLayout.setVisibility(View.VISIBLE);
+                    llQuestionAll.setVisibility(View.GONE);
+                } else {
+                    rvQuesLayout.setVisibility(View.GONE);
+                    llQuestionAll.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayNextQues();
+            }
+        });
         btnPrev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -161,30 +166,28 @@ public class TestFragment extends Fragment {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(int i=0;i<totalItem;i++){
-                    if(quesList.get(i).getSelAnswer().equals(quesList.get(i).getAnswer())){
+                for (int i = 0; i < totalItem; i++) {
+                    if (quesList.get(i).getSelAnswer().equals(quesList.get(i).getAnswer())) {
                         score++;
                     }
-                    if(quesList.get(i).getSelAnswer().equals("none")){
-                        allAnswered=false;
+                    if (quesList.get(i).getSelAnswer().equals("none")) {
+                        allAnswered = false;
 
-                    }
-                    else {
-                        allAnswered=true;
+                    } else {
+                        allAnswered = true;
                     }
                 }
 
 
-                if(allAnswered){
-                    Toast.makeText(getActivity(), "Your Score is "+ score, Toast.LENGTH_LONG).show();
+                if (allAnswered) {
+                    Toast.makeText(getActivity(), "Your Score is " + score, Toast.LENGTH_LONG).show();
 
                     assert getFragmentManager() != null;
                     getFragmentManager()
                             .beginTransaction()
                             .replace(R.id.fragment_container, new StudyFragment())
                             .commit();
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "Answer all the questions", Toast.LENGTH_SHORT).show();
                 }
 
@@ -193,11 +196,11 @@ public class TestFragment extends Fragment {
         return view;
     }
 
-    private void makeRecyclerView(){
-        layoutManager=new LinearLayoutManager(getContext());
+    private void makeRecyclerView() {
+        layoutManager = new LinearLayoutManager(getContext());
         //rvQuesLayout.setHasFixedSize(true);
         rvQuesLayout.setLayoutManager(layoutManager);
-        adapter=new QuestionLayoutRecyclerAdapter(quesList1);
+        adapter = new QuestionLayoutRecyclerAdapter(quesList);
         rvQuesLayout.setAdapter(adapter);
     }
 
@@ -208,6 +211,7 @@ public class TestFragment extends Fragment {
         btnC.setText(quesList.get(item).getOptC());
         btnD.setText(quesList.get(item).getOptD());
         tvQuestion.setText(quesList.get(item).getQuestion());
+
 
     }
 
@@ -227,7 +231,7 @@ public class TestFragment extends Fragment {
                     String optD = (String) messageSnapshot.child("optD").getValue();
                     String answer = (String) messageSnapshot.child("answer").getValue();
 
-                    quesList.add(new mcqQuestion(qtext, optA, optB, optC, optD, answer,"none",false));
+                    quesList.add(new mcqQuestion(qtext, optA, optB, optC, optD, answer, "none", false));
                     Log.d("TOTAL ITEM", String.valueOf(quesList.size()));
 
                 }
@@ -240,6 +244,7 @@ public class TestFragment extends Fragment {
                     rlMcqProgress.setVisibility(View.GONE);
                 }
 
+                makeRecyclerView();
 
             }
 
@@ -252,6 +257,28 @@ public class TestFragment extends Fragment {
 
     }
 
+    private void setFlagValue(){
+
+        if (quesList.get(listItem).isFlag()) {
+            quesList.get(listItem).setFlag(false);
+        } else {
+                 quesList.get(listItem).setFlag(true);
+        }
+    }
+
+
+
+    private void setFlagColor(){
+
+        if (quesList.get(listItem).isFlag()) {
+            btnFlag.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.black));
+            btnFlag.setTextColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.grey));
+        } else {
+            btnFlag.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.grey_light));
+            btnFlag.setTextColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()), R.color.grey));
+        }
+
+    }
     private void setButtonColor() {
         btnA.setBackgroundResource(R.color.grey_light);
         btnB.setBackgroundResource(R.color.grey_light);
@@ -260,14 +287,14 @@ public class TestFragment extends Fragment {
 
     }
 
-
-
     private void displayNextQues() {
 
-        if (listItem < totalItem-1) {
+        if (listItem < totalItem - 1) {
             listItem++;
             setDisplay(listItem);
             setButtonColor();
+            setFlagColor();
+
 
             switch (quesList.get(listItem).getSelAnswer()) {
                 case "optA":
@@ -299,12 +326,13 @@ public class TestFragment extends Fragment {
     }
 
     private void displayPrevQues() {
-btnNext.setVisibility(View.VISIBLE);
+        btnNext.setVisibility(View.VISIBLE);
 
         if (listItem > 0 && listItem < totalItem) {
             listItem--;
             setDisplay(listItem);
             setButtonColor();
+            setFlagColor();
 
             switch (quesList.get(listItem).getSelAnswer()) {
                 case "optA":
