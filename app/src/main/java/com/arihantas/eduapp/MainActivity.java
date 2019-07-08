@@ -52,7 +52,7 @@ public  class MainActivity extends AppCompatActivity implements BottomNavigation
 
             case R.id.navigation_bottom_challenge:
                 fragment = new ChallengeFragment();
-                Toast.makeText(getApplicationContext(), "Challeneg", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Challenge", Toast.LENGTH_SHORT).show();
                 break;
 
         }

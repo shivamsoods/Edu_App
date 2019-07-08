@@ -12,10 +12,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,9 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
+import java.util.Objects;
 
 
 /**
@@ -35,17 +36,21 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class TestFragment extends Fragment {
 
 
-    private Button btnA, btnB, btnC, btnD, btnSubmit, btnNext, btnPrev;
-    private TextView tvQuestion, tvScore;
+    private Button btnA, btnB, btnC, btnD, btnSubmit, btnNext, btnPrev,btnFlag;
+    private TextView tvQuestion, tvLayout;
     private String optionSelected = "none";
     private int totalItem;
     private int listItem = 0;
     private ArrayList<mcqQuestion> quesList = new ArrayList<>();
+    private ArrayList<mcqQuestion> quesList1 = new ArrayList<>();
     private int score = 0;
     private boolean isLoading = true;
     private RelativeLayout rlMcqProgress;
     private FirebaseAuth mAuth;
     private  boolean allAnswered=false;
+    private RecyclerView rvQuesLayout;
+    private RecyclerView.LayoutManager layoutManager;
+    private QuestionLayoutRecyclerAdapter adapter;
 
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -69,13 +74,17 @@ public class TestFragment extends Fragment {
         btnSubmit = view.findViewById(R.id.btn_mcq_submit);
         btnNext = view.findViewById(R.id.btn_mcq_next);
         btnPrev = view.findViewById(R.id.btn_mcq_prev);
+        btnFlag=view.findViewById(R.id.btn_mcq_flag);
 
         tvQuestion = view.findViewById(R.id.tv_mcq_question);
-        tvScore = view.findViewById(R.id.tv_mcq_score);
+        tvLayout = view.findViewById(R.id.tv_mcq_question_layout);
 
+        rvQuesLayout=view.findViewById(R.id.rv_layout_question_test);
+        makeRecyclerView();
 
         rlMcqProgress = view.findViewById(R.id.rl_mcq_progress);
         rlMcqProgress.setVisibility(View.VISIBLE);
+
 
         mAuth = FirebaseAuth.getInstance();
         getFData();
@@ -125,6 +134,22 @@ public class TestFragment extends Fragment {
             }
         });
 
+        btnFlag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(quesList.get(listItem).isFlag()){
+                    btnFlag.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()),R.color.grey_light));
+                    btnFlag.setTextColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()),R.color.grey));
+                    quesList.get(listItem).setFlag(false);}
+                else {
+                    btnFlag.setBackgroundColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()),R.color.grey));
+                    btnFlag.setTextColor(ContextCompat.getColor(Objects.requireNonNull(getActivity()),R.color.white));
+                    quesList.get(listItem).setFlag(true);
+                }
+
+            }
+        });
+
         btnPrev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,39 +157,6 @@ public class TestFragment extends Fragment {
             }
         });
 
-//        btnSubmit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                setButtonColor();
-//
-//
-//                if (listItem < totalItem) {
-//                    if (optionSelected.equals(quesList.get(listItem).getAnswer())) {
-//                        Toast.makeText(getActivity(), "Correct Answer", Toast.LENGTH_SHORT).show();
-//
-//                        displayNextQues();
-//                        optionSelected = "none";
-//
-//                        score++;
-//                        tvScore.setText("Score: " + score);
-//
-//                    } else if (optionSelected.equals("none")) {
-//                        Toast.makeText(getActivity(), "Please enter a choise", Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        Toast.makeText(getActivity(), "Wrong Answer", Toast.LENGTH_SHORT).show();
-//
-//                        displayNextQues();
-//                        optionSelected = "none";
-//
-//
-//                    }
-//                } else {
-//                    Toast.makeText(getActivity(), "You have ended the quiz", Toast.LENGTH_SHORT).show();
-//                }
-//
-//
-//            }
-//        });
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,6 +193,13 @@ public class TestFragment extends Fragment {
         return view;
     }
 
+    private void makeRecyclerView(){
+        layoutManager=new LinearLayoutManager(getContext());
+        //rvQuesLayout.setHasFixedSize(true);
+        rvQuesLayout.setLayoutManager(layoutManager);
+        adapter=new QuestionLayoutRecyclerAdapter(quesList1);
+        rvQuesLayout.setAdapter(adapter);
+    }
 
     private void setDisplay(int item) {
 
@@ -228,7 +227,7 @@ public class TestFragment extends Fragment {
                     String optD = (String) messageSnapshot.child("optD").getValue();
                     String answer = (String) messageSnapshot.child("answer").getValue();
 
-                    quesList.add(new mcqQuestion(qtext, optA, optB, optC, optD, answer,"none"));
+                    quesList.add(new mcqQuestion(qtext, optA, optB, optC, optD, answer,"none",false));
                     Log.d("TOTAL ITEM", String.valueOf(quesList.size()));
 
                 }

@@ -5,7 +5,17 @@
     android:layout_height="match_parent"
     tools:context=".TestFragment">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_layout_question_test"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
+
+
+    </androidx.recyclerview.widget.RecyclerView>
+
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,12 +45,12 @@
 
 
         <TextView
-            android:id="@+id/tv_mcq_score"
+            android:id="@+id/tv_mcq_question_layout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
             android:gravity="center"
-            android:text=""
+            android:text=" ===Question Layout"
             android:textSize="20sp" />
 
 
@@ -73,6 +83,14 @@
             android:gravity="center"
             android:orientation="vertical">
 
+            <Button
+                android:id="@+id/btn_mcq_flag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="FLAG"
+                android:background="@color/grey"
+                android:textColor="@color/white" />
             <Button
                 android:id="@+id/btn_mcq_A"
                 android:layout_width="match_parent"

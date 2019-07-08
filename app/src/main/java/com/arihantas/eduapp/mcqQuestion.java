@@ -13,9 +13,10 @@ public class mcqQuestion extends Activity {
     private String optD;
     private String answer;
     private String selAnswer;
+    private boolean flag;
 
 
-    public mcqQuestion( String question, String optA, String optB, String optC, String optD, String answer,String selAnswer) {
+    public mcqQuestion( String question, String optA, String optB, String optC, String optD, String answer,String selAnswer,boolean flag) {
 
         this.question = question;
         this.optA = optA;
@@ -24,6 +25,7 @@ public class mcqQuestion extends Activity {
         this.optD = optD;
         this.answer = answer;
         this.selAnswer=selAnswer;
+        this.flag=flag;
     }
 
 
@@ -79,6 +81,14 @@ public class mcqQuestion extends Activity {
     public String getSelAnswer() {return selAnswer;}
 
     public void setSelAnswer(String selAnswer) {this.selAnswer = selAnswer;}
+
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
 }
 
 
