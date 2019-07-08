@@ -89,14 +89,13 @@ public class LoginActivity extends AppCompatActivity {
         btnEmailSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(check()){
-                if (emailLoginBool) {
-                    emailLogIn();
+                if (check()) {
+                    if (emailLoginBool) {
+                        emailLogIn();
+                    } else {
+                        emailSignUp();
+                    }
                 } else {
-                    emailSignUp();
-                }
-                }
-                else {
                     Toast.makeText(LoginActivity.this, "Fill all the fields", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -124,14 +123,14 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private boolean check(){
-        if(etLoginEmail.getText().toString().trim().isEmpty() ||etPasswordEmail.getText().toString().trim().isEmpty()){
+    private boolean check() {
+        if (etLoginEmail.getText().toString().trim().isEmpty() || etPasswordEmail.getText().toString().trim().isEmpty()) {
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
+
     private void emailSignUp() {
         mAuth.createUserWithEmailAndPassword(etLoginEmail.getText().toString().trim(), etPasswordEmail.getText().toString().trim())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {

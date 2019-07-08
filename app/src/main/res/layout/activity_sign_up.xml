@@ -1,49 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUpActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".SignUpActivity">
 
     <EditText
         android:id="@+id/et_signup_name"
-        android:padding="15dp"
-        android:layout_margin="8dp"
-        android:hint="Name"
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
-    <EditText
-        android:id="@+id/et_signup_class"
-        android:padding="15dp"
-        android:hint="Class"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_margin="8dp"/>
+        android:layout_margin="8dp"
+        android:hint="Name"
+        android:padding="15dp" />
+
+    <EditText
+        android:id="@+id/et_signup_class"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="8dp"
+        android:hint="Class"
+        android:padding="15dp" />
 
     <EditText
         android:id="@+id/et_signup_school"
-        android:layout_margin="8dp"
-        android:padding="15dp"
-        android:hint="School"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        android:layout_margin="8dp"
+        android:hint="School"
+        android:padding="15dp" />
+
     <EditText
         android:id="@+id/et_signup_mobile"
-        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_margin="8dp"
         android:hint="Mobile"
-        android:maxLength="10"
         android:inputType="number"
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:maxLength="10"
+        android:padding="15dp" />
+
     <Button
         android:id="@+id/btn_signup_submit"
-        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:hint="SUBMIT"/>
+        android:layout_gravity="center_horizontal"
+        android:hint="SUBMIT" />
 
 
 </LinearLayout>

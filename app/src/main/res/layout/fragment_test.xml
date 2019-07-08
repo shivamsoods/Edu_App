@@ -3,16 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TestFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".TestFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="55dp"
         android:id="@+id/rv_layout_question_test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
         android:scrollbars="vertical"
-        android:visibility="gone"/>
+        android:visibility="gone" />
+
 
     <TextView
         android:id="@+id/tv_mcq_question_layout"
@@ -20,42 +21,38 @@
         android:layout_height="50dp"
         android:gravity="center"
         android:text=" =Question Layout="
-        android:textSize="20sp" />
-
+        android:textSize="20sp"
+        android:visibility="gone" />
 
     <LinearLayout
-        android:layout_marginTop="50dp"
         android:id="@+id/ll_test_all"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
         android:orientation="vertical">
 
+
         <RelativeLayout
-            android:visibility="gone"
             android:id="@+id/rl_mcq_progress"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
             <ProgressBar
-                android:layout_centerInParent="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/pb_mcq_wait"
-                />
-            <TextView
-                android:textColor="@color/black"
-                android:layout_marginTop="32dp"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/pb_mcq_wait"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Questions are on your way!"/>
+                android:layout_centerInParent="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pb_mcq_wait"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="32dp"
+                android:text="New Questions are on your way!"
+                android:textColor="@color/black" />
         </RelativeLayout>
-
-
-
-
-
-
 
 
         <LinearLayout
@@ -90,35 +87,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="FLAG"
                 android:background="@color/grey_light"
+                android:text="FLAG"
                 android:textColor="@color/grey" />
+
             <Button
                 android:id="@+id/btn_mcq_A"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text=""
                 android:background="@color/grey_light"
+                android:text=""
                 android:textColor="@color/grey" />
 
             <Button
 
-                android:background="@color/grey_light"
                 android:id="@+id/btn_mcq_B"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@color/grey_light"
                 android:text=""
                 android:textColor="@color/grey" />
 
 
             <Button
-                android:background="@color/grey_light"
                 android:id="@+id/btn_mcq_C"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@color/grey_light"
                 android:text=""
                 android:textColor="@color/grey" />
 
@@ -127,8 +125,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text=""
                 android:background="@color/grey_light"
+                android:text=""
                 android:textColor="@color/grey" />
 
             <LinearLayout
@@ -138,32 +136,32 @@
                 <Button
                     android:id="@+id/btn_mcq_prev"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:layout_weight="1"
                     android:text="Previous"
                     android:textColor="@color/black" />
+
                 <Button
-                    android:visibility="gone"
                     android:id="@+id/btn_mcq_submit"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:layout_weight="1"
                     android:text="SUBMIT"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:visibility="gone" />
 
 
                 <Button
                     android:id="@+id/btn_mcq_next"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:layout_weight="1"
                     android:text="Next"
                     android:textColor="@color/black" />
             </LinearLayout>
-
 
 
         </LinearLayout>

@@ -28,6 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -168,13 +170,15 @@ public class TestFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 for (int i = 0; i < totalItem; i++) {
-                    if (quesList.get(i).getSelAnswer().equals(quesList.get(i).getAnswer())) {
-                        score++;
-                    }
+
                     if (quesList.get(i).getSelAnswer().equals("none")) {
                         allAnswered = false;
+                        break;
 
                     } else {
+                        if (quesList.get(i).getSelAnswer().equals(quesList.get(i).getAnswer())) {
+                            score++;
+                        }
                         allAnswered = true;
                     }
                 }
@@ -205,6 +209,19 @@ public class TestFragment extends Fragment {
         rvQuesLayout.setLayoutManager(layoutManager);
         adapter = new QuestionLayoutRecyclerAdapter(quesList);
         rvQuesLayout.setAdapter(adapter);
+
+        adapter.setOnItemClickListner(new QuestionLayoutRecyclerAdapter.onItemClickListner() {
+            @Override
+            public void onClick(int pos) {
+                listItem=pos;
+                if(listItem>=0 && listItem<totalItem){
+                    makeAllDisplay();
+                    rvQuesLayout.setVisibility(View.GONE);
+                    llQuestionAll.setVisibility(View.VISIBLE);
+
+                }
+            }
+        });
 
     }
 
@@ -246,6 +263,7 @@ public class TestFragment extends Fragment {
                 if (!isLoading) {
                     setDisplay(listItem);
                     rlMcqProgress.setVisibility(View.GONE);
+                    tvLayout.setVisibility(View.VISIBLE);
                 }
 
                 makeRecyclerView();
@@ -295,30 +313,8 @@ public class TestFragment extends Fragment {
 
         if (listItem < totalItem - 1) {
             listItem++;
-            setDisplay(listItem);
-            setButtonColor();
-            setFlagColor();
 
-
-            switch (quesList.get(listItem).getSelAnswer()) {
-                case "optA":
-                    btnA.setBackgroundResource(R.color.sky_blue);
-                    break;
-                case "optB":
-                    btnB.setBackgroundResource(R.color.sky_blue);
-                    break;
-                case "optC":
-                    btnC.setBackgroundResource(R.color.sky_blue);
-                    break;
-                case "optD":
-                    btnD.setBackgroundResource(R.color.sky_blue);
-                    break;
-                default:
-                    setButtonColor();
-                    break;
-
-
-            }
+            makeAllDisplay();
 
 
         } else {
@@ -328,35 +324,36 @@ public class TestFragment extends Fragment {
 
 
     }
+    private void makeAllDisplay(){
+        setDisplay(listItem);
+        setButtonColor();
+        setFlagColor();
+        switch (quesList.get(listItem).getSelAnswer()) {
+            case "optA":
+                btnA.setBackgroundResource(R.color.sky_blue);
+                break;
+            case "optB":
+                btnB.setBackgroundResource(R.color.sky_blue);
+                break;
+            case "optC":
+                btnC.setBackgroundResource(R.color.sky_blue);
+                break;
+            case "optD":
+                btnD.setBackgroundResource(R.color.sky_blue);
+                break;
+            default:
+                setButtonColor();
+                break;
+        }
+
+    }
 
     private void displayPrevQues() {
         btnNext.setVisibility(View.VISIBLE);
 
         if (listItem > 0 && listItem < totalItem) {
             listItem--;
-            setDisplay(listItem);
-            setButtonColor();
-            setFlagColor();
-
-            switch (quesList.get(listItem).getSelAnswer()) {
-                case "optA":
-                    btnA.setBackgroundResource(R.color.sky_blue);
-                    break;
-                case "optB":
-                    btnB.setBackgroundResource(R.color.sky_blue);
-                    break;
-                case "optC":
-                    btnC.setBackgroundResource(R.color.sky_blue);
-                    break;
-                case "optD":
-                    btnD.setBackgroundResource(R.color.sky_blue);
-                    break;
-                default:
-                    setButtonColor();
-                    break;
-
-
-            }
+           makeAllDisplay();
 
         } else {
 

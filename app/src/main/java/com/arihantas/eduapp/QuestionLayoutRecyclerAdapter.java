@@ -18,7 +18,14 @@ public class QuestionLayoutRecyclerAdapter extends RecyclerView.Adapter<Question
 
     private ArrayList<mcqQuestion> quesList;
 
+    private onItemClickListner onItemClickListner;
 
+    public void setOnItemClickListner(QuestionLayoutRecyclerAdapter.onItemClickListner onItemClickListner) {
+        this.onItemClickListner = onItemClickListner;
+    }
+    public interface onItemClickListner{
+        void onClick(int pos);//pass your object types.
+    }
 
 
     public QuestionLayoutRecyclerAdapter(ArrayList<mcqQuestion> quesList){
@@ -35,7 +42,7 @@ public class QuestionLayoutRecyclerAdapter extends RecyclerView.Adapter<Question
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FlagViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final FlagViewHolder holder, int position) {
             mcqQuestion question_id= quesList.get(position);
             holder.tvQuestionNumber.setText("Question "+ (position+1));
             if(question_id.isFlag()){
@@ -44,6 +51,13 @@ public class QuestionLayoutRecyclerAdapter extends RecyclerView.Adapter<Question
             else {
                 holder.ivFlag.setImageResource(R.drawable.common_google_signin_btn_icon_dark_normal);
             }
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListner.onClick(holder.getAdapterPosition());
+                }
+            });
 
 
     }
