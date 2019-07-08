@@ -37,11 +37,9 @@ public class TestFragment extends Fragment {
 
     private Button btnA, btnB, btnC, btnD, btnSubmit, btnNext, btnPrev, btnFlag;
     private TextView tvQuestion, tvLayout;
-    private String optionSelected = "none";
     private int totalItem;
     private int listItem = 0;
     private ArrayList<mcqQuestion> quesList = new ArrayList<>();
-    private ArrayList<mcqQuestion> quesList1 = new ArrayList<>();
     private int score = 0;
     private boolean isLoading = true;
     private RelativeLayout rlMcqProgress;
@@ -88,6 +86,8 @@ public class TestFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         getFData();
+
+
 
 
         btnA.setOnClickListener(new View.OnClickListener() {
@@ -139,6 +139,7 @@ public class TestFragment extends Fragment {
             public void onClick(View v) {
 
                 adapter.notifyDataSetChanged();
+
                 if (rvQuesLayout.getVisibility() == View.GONE || rvQuesLayout.getVisibility() == View.INVISIBLE) {
                     rvQuesLayout.setVisibility(View.VISIBLE);
                     llQuestionAll.setVisibility(View.GONE);
@@ -193,6 +194,8 @@ public class TestFragment extends Fragment {
 
             }
         });
+
+
         return view;
     }
 
@@ -202,6 +205,7 @@ public class TestFragment extends Fragment {
         rvQuesLayout.setLayoutManager(layoutManager);
         adapter = new QuestionLayoutRecyclerAdapter(quesList);
         rvQuesLayout.setAdapter(adapter);
+
     }
 
     private void setDisplay(int item) {

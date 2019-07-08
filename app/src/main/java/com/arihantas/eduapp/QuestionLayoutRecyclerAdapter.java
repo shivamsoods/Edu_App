@@ -1,10 +1,12 @@
 package com.arihantas.eduapp;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 
 
 import androidx.annotation.NonNull;
@@ -16,15 +18,19 @@ public class QuestionLayoutRecyclerAdapter extends RecyclerView.Adapter<Question
 
     private ArrayList<mcqQuestion> quesList;
 
+
+
+
     public QuestionLayoutRecyclerAdapter(ArrayList<mcqQuestion> quesList){
         this.quesList=quesList;
+
     }
 
     @NonNull
     @Override
     public FlagViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.question_layout,parent,false);
-        FlagViewHolder  flagViewHolder=new FlagViewHolder(view);
+        FlagViewHolder  flagViewHolder=new FlagViewHolder(view,quesList);
         return flagViewHolder;
     }
 
@@ -47,14 +53,29 @@ public class QuestionLayoutRecyclerAdapter extends RecyclerView.Adapter<Question
         return quesList.size();
     }
 
-    public static class FlagViewHolder extends RecyclerView.ViewHolder{
+
+    public static class FlagViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         ImageView ivFlag;
         TextView tvQuestionNumber;
-        public FlagViewHolder(@NonNull View itemView) {
+        ArrayList<mcqQuestion> quesList;
+
+        public FlagViewHolder(@NonNull View itemView,ArrayList<mcqQuestion> quesList) {
             super(itemView);
             ivFlag=itemView.findViewById(R.id.iv_layout_flag);
             tvQuestionNumber=itemView.findViewById(R.id.tv_layout_question_number);
+            itemView.setOnClickListener(this);
+            this.quesList=quesList;
+
+        }
+
+
+        @Override
+        public void onClick(View v) {
+
+            int quesClick=getAdapterPosition();
+
+
         }
     }
 }
